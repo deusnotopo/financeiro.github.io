@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector de Vazamentos Financeiros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-bar {
+            height: 1.5rem;
+            border-radius: 0.375rem;
+            background-color: #e5e7eb;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 0.375rem;
+            transition: width 0.3s ease;
+        }
+        .leak-card {
+            transition: all 0.3s ease;
+        }
+        .leak-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .print-section {
+            page-break-inside: avoid;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .print-full {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">Método Detector de Vazamentos Financeiros</h1>
+            <p class="text-lg">Encontre até R$500 escondidos no seu orçamento em apenas 3 dias</p>
+            <div class="no-print mt-4">
+                <button onclick="window.print()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-2">
+                    <i class="fas fa-print mr-1"></i> Imprimir
+                </button>
+                <button onclick="resetForm()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
+                    <i class="fas fa-redo mr-1"></i> Limpar
+                </button>
+            </div>
+        </header>
+
+        <!-- Introduction -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <div class="flex items-start">
+                <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-2">A VERDADE SOBRE SEUS VAZAMENTOS FINANCEIROS</h2>
+                    <p class="mb-3">A maioria das pessoas tem entre <span class="font-bold">15% e 25% do seu rendimento mensal</span> simplesmente "vazando" por rachaduras invisíveis no orçamento.</p>
+                    <p>Em um salário de R$3.000, isso significa até <span class="font-bold text-red-600">R$750 desaparecendo todo mês</span> – ou R$9.000 por ano!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3-Day Plan -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8 print-section">
+            <!-- Day 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md leak-card">
+                <div class="flex items-center mb-4">
+                    <div class="bg-blue-100 text-blue-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">1</div>
+                    <h3 class="text-lg font-bold">DIA 1: DIAGNÓSTICO</h3>
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>Técnica do "Raio-X Financeiro"</li>
+                    <li>Crie sua Tabela de Vazamentos</li>
+                    <li>Busca por vazamentos ocultos</li>
+                </ul>
+                <button onclick="showDay(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md text-sm w-full">
+                    Ver Detalhes
+                </button>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md leak-card">
+                <div class="flex items-center mb-4">
+                    <div class="bg-green-100 text-green-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">2</div>
+                    <h3 class="text-lg font-bold">DIA 2: OS 27 VAZAMENTOS</h3>
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>Vazamentos bancários</li>
+                    <li>Consumo invisível</li>
+                    <li>Serviços e contas</li>
+                </ul>
+                <button onclick="showDay(2)" class="mt-4 bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md text-sm w-full">
+                    Ver Detalhes
+                </button>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md leak-card">
+                <div class="flex items-center mb-4">
+                    <div class="bg-purple-100 text-purple-800 font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3">3</div>
+                    <h3 class="text-lg font-bold">DIA 3: CONSERTO RÁPIDO</h3>
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>Cancelamentos prioritários</li>
+                    <li>Negociação de redução</li>
+                    <li>Automação de economia</li>
+                </ul>
+                <button onclick="showDay(3)" class="mt-4 bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-md text-sm w-full">
+                    Ver Detalhes
+                </button>
+            </div>
+        </div>
+
+        <!-- Leak Detector Tool -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">DETECTOR DE VAZAMENTOS</h2>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Selecione o tipo de vazamento para analisar:</label>
+                <select id="leak-type" class="w-full px-3 py-2 border rounded-md" onchange="showLeakDetails()">
+                    <option value="">-- Selecione um vazamento --</option>
+                    <option value="1">Tarifas de Pacote Bancário</option>
+                    <option value="2">Anuidade de Cartão de Crédito</option>
+                    <option value="3">Juros Rotativos no Cartão</option>
+                    <option value="4">Seguros Desnecessários</option>
+                    <option value="5">Assinaturas de Streaming Duplicadas</option>
+                    <option value="6">Compras Recorrentes de Apps</option>
+                    <option value="7">Delivery com Taxa de Entrega</option>
+                    <option value="8">Plano de Celular Superdimensionado</option>
+                    <option value="9">TV por Assinatura com Pacotes Premium</option>
+                    <option value="10">Academia Não Frequentada</option>
+                </select>
+            </div>
+            
+            <div id="leak-details" class="hidden bg-gray-50 p-4 rounded-md">
+                <h3 id="leak-title" class="font-bold text-lg mb-2"></h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="font-medium text-sm mb-1">Economia Potencial:</p>
+                        <p id="leak-savings" class="text-green-600 font-bold"></p>
+                        
+                        <p class="font-medium text-sm mt-3 mb-1">Como detectar:</p>
+                        <p id="leak-detect" class="text-sm"></p>
+                    </div>
+                    <div>
+                        <p class="font-medium text-sm mb-1">Solução Recomendada:</p>
+                        <p id="leak-solution" class="text-sm"></p>
+                        
+                        <div id="leak-script" class="mt-3 hidden">
+                            <p class="font-medium text-sm mb-1">Script de Negociação:</p>
+                            <div class="bg-blue-50 p-3 rounded text-sm">
+                                <p id="script-text" class="whitespace-pre-line"></p>
+                                <button onclick="copyScript()" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                                    <i class="fas fa-copy mr-1"></i> Copiar Script
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 flex items-center">
+                    <input type="number" id="leak-value" placeholder="Valor atual (R$)" class="px-3 py-2 border rounded-md mr-2">
+                    <button onclick="addToSavings()" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md">
+                        Adicionar à Minha Economia
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Savings Tracker -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">MINHAS ECONOMIAS IDENTIFICADAS</h2>
+            
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-sm font-medium">Progresso da Meta (R$500):</span>
+                    <span id="savings-percentage" class="text-sm font-bold">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="total-savings-bar" class="progress-fill bg-green-500" style="width: 0%"></div>
+                </div>
+                <p class="text-right text-sm mt-1">Total: <span id="total-savings" class="font-bold">R$ 0,00</span></p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full border">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="py-2 px-3 border text-left text-sm">Vazamento</th>
+                            <th class="py-2 px-3 border text-left text-sm">Valor Mensal</th>
+                            <th class="py-2 px-3 border text-left text-sm">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="savings-table">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 bg-blue-50 p-3 rounded-md">
+                <p class="font-medium">Impacto Anual:</p>
+                <p id="annual-impact" class="text-xl font-bold">R$ 0,00</p>
+                <p class="text-sm mt-1">Em 5 anos investindo a 8% a.a.: <span id="five-year-impact" class="font-medium">R$ 0,00</span></p>
+            </div>
+        </div>
+
+        <!-- Day Details Sections (hidden by default) -->
+        <div id="day1-details" class="hidden bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">DIA 1: DIAGNÓSTICO DOS VAZAMENTOS</h2>
+                <button onclick="hideDay(1)" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <h3 class="font-bold mb-2 text-lg">PASSO 1: A TÉCNICA DO "RAIO-X FINANCEIRO"</h3>
+            <p class="mb-4">A maioria das pessoas tenta controlar gastos olhando apenas extratos bancários. <span class="font-bold">Grande erro!</span> Os vazamentos mais significativos frequentemente não aparecem diretamente nos seus extratos.</p>
+            
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-gray-50 p-4 rounded-md">
+                    <h4 class="font-bold mb-2">Fontes de Dados Financeiros:</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Extrato bancário (últimos 90 dias)</li>
+                        <li>Fatura do cartão de crédito</li>
+                        <li>Histórico de PIX e TED</li>
+                        <li>Histórico de compras em apps</li>
+                        <li>Email (busque por "recibo")</li>
+                        <li>Aplicativos de transporte/delivery</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-md">
+                    <h4 class="font-bold mb-2">Tabela de Vazamentos:</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border text-sm">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="py-1 px-2 border">Tipo de Gasto</th>
+                                    <th class="py-1 px-2 border">Valor</th>
+                                    <th class="py-1 px-2 border">Nec.</th>
+                                    <th class="py-1 px-2 border">Sat.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-1 px-2 border">Netflix</td>
+                                    <td class="py-1 px-2 border">R$39,90</td>
+                                    <td class="py-1 px-2 border">2</td>
+                                    <td class="py-1 px-2 border">4</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1 px-2 border">Seguro Cartão</td>
+                                    <td class="py-1 px-2 border">R$29,90</td>
+                                    <td class="py-1 px-2 border">1</td>
+                                    <td class="py-1 px-2 border">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs mt-2"><span class="font-bold">Regra de Ouro:</span> Qualquer gasto com soma de Necessidade + Satisfação menor que 5 é um vazamento!</p>
+                </div>
+            </div>
+            
+            <h3 class="font-bold mb-2 text-lg">PASSO 2: BUSCA PELOS "VAZAMENTOS OCULTOS"</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-red-50 p-4 rounded-md">
+                    <h4 class="font-bold mb-2 text-red-700">Taxas Bancárias Escondidas:</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Pacote de serviços (quando você usa apenas 10%)</li>
+                        <li>Anuidade de cartão (muitas vezes negociável)</li>
+                        <li>Seguro prestamista em empréstimos</li>
+                        <li>Taxa de transferência/TED/DOC</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 p-4 rounded-md">
+                    <h4 class="font-bold mb-2 text-red-700">Assinaturas Zumbis:</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>Streaming não utilizado há 30+ dias</li>
+                        <li>Apps de treino/meditação não abertos</li>
+                        <li>Serviços com período gratuito que virou pago</li>
+                        <li>Taxas anuais de apps esquecidos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="day2-details" class="hidden bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">DIA 2: OS 27 VAZAMENTOS MAIS COMUNS</h2>
+                <button onclick="hideDay(2)" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <div class="flex items-center mb-3">
+                    <div class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2">1</div>
+                    <h3 class="font-bold">VAZAMENTOS BANCÁRIOS E FINANCEIROS</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 ml-8">
+                    <div class="border-l-4 border-blue-300 pl-3">
+                        <h4 class="font-medium">1. Tarifas de Pacote Bancário</h4>
+                        <p class="text-sm text-green-600">Economia: R$30-45/mês</p>
+                        <p class="text-xs">Solução: Negociar pacote básico ou migrar para banco digital</p>
+                    </div>
+                    <div class="border-l-4 border-blue-300 pl-3">
+                        <h4 class="font-medium">2. Anuidade de Cartão de Crédito</h4>
+                        <p class="text-sm text-green-600">Economia: R$25-60/mês</p>
+                        <p class="text-xs">78% conseguem isenção ao ameaçar cancelar</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <div class="flex items-center mb-3">
+                    <div class="bg-purple-100 text-purple-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2">2</div>
+                    <h3 class="font-bold">VAZAMENTOS DE CONSUMO INVISÍVEL</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 ml-8">
+                    <div class="border-l-4 border-purple-300 pl-3">
+                        <h4 class="font-medium">5. Assinaturas de Streaming Duplicadas</h4>
+                        <p class="text-sm text-green-600">Economia: R$40-70/mês</p>
+                        <p class="text-xs">Técnica do "streaming rotativo"</p>
+                    </div>
+                    <div class="border-l-4 border-purple-300 pl-3">
+                        <h4 class="font-medium">6. Compras Recorrentes de Apps</h4>
+                        <p class="text-sm text-green-600">Economia: R$30-60/mês</p>
+                        <p class="text-xs">Auditar apps pagos não usados</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <div class="flex items-center mb-3">
+                    <div class="bg-green-100 text-green-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2">3</div>
+                    <h3 class="font-bold">VAZAMENTOS DE SERVIÇOS E CONTAS</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 ml-8">
+                    <div class="border-l-4 border-green-300 pl-3">
+                        <h4 class="font-medium">11. Plano de Celular Superdimensionado</h4>
+                        <p class="text-sm text-green-600">Economia: R$30-80/mês</p>
+                        <p class="text-xs">65% pagam por dados não usados</p>
+                    </div>
+                    <div class="border-l-4 border-green-300 pl-3">
+                        <h4 class="font-medium">12. TV por Assinatura com Pacotes Premium</h4>
+                        <p class="text-sm text-green-600">Economia: R$50-150/mês</p>
+                        <p class="text-xs">Negociar redução sem perder canais</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="showAllLeaks()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                Ver Todos os 27 Vazamentos
+            </button>
+        </div>
+
+        <div id="day3-details" class="hidden bg-white p-6 rounded-lg shadow-md mb-8 print-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">DIA 3: EXECUTANDO O "CONSERTO RÁPIDO"</h2>
+                <button onclick="hideDay(3)" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <h3 class="font-bold mb-3 text-lg">MANHÃ: OPERAÇÃO DE CONTENÇÃO IMEDIATA</h3>
+            <div class="bg-yellow-50 p-4 rounded-md mb-4">
+                <h4 class="font-bold mb-2">Cancelamentos Prioritários</h4>
+                <p class="text-sm mb-3">Identifique todos os itens que:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>Pontuação combinada (Necessidade + Satisfação) menor que 4</li>
+                    <li>Custo mensal maior que R$20</li>
+                </ul>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-md mb-6">
+                <h4 class="font-bold mb-2">Script de Cancelamento à Prova de Retenção:</h4>
+                <div class="bg-white p-3 rounded text-sm">
+                    <p>"Olá, gostaria de cancelar minha assinatura/serviço devido a uma reorganização do meu orçamento pessoal. Já tomei esta decisão e não estou interessado em promoções neste momento. Por favor, confirme o cancelamento e me envie um comprovante por email."</p>
+                    <button onclick="copyText(this.previousElementSibling.textContent)" class="mt-2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
+                        <i class="fas fa-copy mr-1"></i> Copiar Script
+                    </button>
+                </div>
+            </div>
+            
+            <h3 class="font-bold mb-3 text-lg">TARDE: NEGOCIAÇÃO DE REDUÇÃO</h3>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div class="bg-green-50 p-3 rounded-md">
+                    <h4 class="font-medium mb-1">Redução de Plano de Telefonia</h4>
+                    <p class="text-xs mb-2">Taxa de sucesso: 83%</p>
+                    <button onclick="showScript('telefonia')" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs">
+                        Ver Script
+                    </button>
+                </div>
+                <div class="bg-green-50 p-3 rounded-md">
+                    <h4 class="font-medium mb-1">Redução de Taxas Bancárias</h4>
+                    <p class="text-xs mb-2">Redução de 50-100%</p>
+                    <button onclick="showScript('bancarias')" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs">
+                        Ver Script
+                    </button>
+                </div>
+            </div>
+            
+            <h3 class="font-bold mb-3 text-lg">NOITE: AUTOMAÇÃO DE ECONOMIA</h3>
+            <div class="bg-purple-50 p-4 rounded-md">
+                <ul class="list-disc pl-5 space-y-2 text-sm">
+                    <li><span class="font-medium">Configure alertas de cobrança</span> - Use apps como Mobills ou GuiaBolso</li>
+                    <li><span class="font-medium">Implemente "barreiras de fricção"</span> - Remova cartões salvos, desative compras com 1-clique</li>
+                    <li><span class="font-medium">Crie revisão mensal</span> - Lembrete na agenda com checklist</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- All Leaks Modal -->
+        <div id="all-leaks-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">OS 27 VAZAMENTOS FINANCEIROS</h2>
+                        <button onclick="hideAllLeaks()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-2 bg-blue-100 p-2 rounded">1. Vazamentos Bancários e Financeiros</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Tarifas de Pacote Bancário</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-45/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Anuidade de Cartão de Crédito</h4>
+                                <p class="text-sm text-green-600">Economia: R$25-60/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Juros Rotativos no Cartão</h4>
+                                <p class="text-sm text-green-600">Economia: R$50-500/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Seguros Desnecessários</h4>
+                                <p class="text-sm text-green-600">Economia: R$20-120/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Taxa de Transferência</h4>
+                                <p class="text-sm text-green-600">Economia: R$10-30/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-2 bg-purple-100 p-2 rounded">2. Vazamentos de Consumo Invisível</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Assinaturas de Streaming Duplicadas</h4>
+                                <p class="text-sm text-green-600">Economia: R$40-70/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Compras Recorrentes de Apps</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-60/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Delivery com Taxa de Entrega</h4>
+                                <p class="text-sm text-green-600">Economia: R$40-100/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Pequenas Compras Diárias</h4>
+                                <p class="text-sm text-green-600">Economia: R$150-300/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Impulsos de Compra Online</h4>
+                                <p class="text-sm text-green-600">Economia: R$200-500/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-2 bg-green-100 p-2 rounded">3. Vazamentos de Serviços e Contas</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Plano de Celular Superdimensionado</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-80/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">TV por Assinatura com Pacotes Premium</h4>
+                                <p class="text-sm text-green-600">Economia: R$50-150/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Vazamentos de Internet Móvel</h4>
+                                <p class="text-sm text-green-600">Economia: R$20-50/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Seguro Residencial Duplicado</h4>
+                                <p class="text-sm text-green-600">Economia: R$15-40/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Serviços Públicos Mal Dimensionados</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-100/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-2 bg-yellow-100 p-2 rounded">4. Vazamentos da Era Digital</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Ferramentas de Produtividade Não Utilizadas</h4>
+                                <p class="text-sm text-green-600">Economia: R$20-50/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Compras In-App em Jogos</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-200/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Assinaturas de Cursos Online</h4>
+                                <p class="text-sm text-green-600">Economia: R$50-200/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Armazenamento em Nuvem Duplicado</h4>
+                                <p class="text-sm text-green-600">Economia: R$10-40/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Domínios e Hospedagens Esquecidos</h4>
+                                <p class="text-sm text-green-600">Economia: R$15-50/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-2 bg-red-100 p-2 rounded">5. Vazamentos Sociais e de Estilo de Vida</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Academia Não Frequentada</h4>
+                                <p class="text-sm text-green-600">Economia: R$80-200/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Programas de Fidelidade Não Utilizados</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-100/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Presentes e Contribuições Sociais</h4>
+                                <p class="text-sm text-green-600">Economia: R$50-200/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Compras de Conveniência</h4>
+                                <p class="text-sm text-green-600">Economia: R$100-300/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Taxa de Impulsividade</h4>
+                                <p class="text-sm text-green-600">Economia: R$100-400/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold mb-2 bg-blue-100 p-2 rounded">6. Vazamentos Fiscais e Tributários</h3>
+                        <div class="grid md:grid-cols-2 gap-2 ml-4">
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Pagamento de IPTU em Cota Única</h4>
+                                <p class="text-sm text-green-600">Economia: R$30-100/mês</p>
+                            </div>
+                            <div class="p-2 border-b">
+                                <h4 class="font-medium">Taxas do Imposto de Renda</h4>
+                                <p class="text-sm text-green-600">Economia: R$50-300/mês</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script Modal -->
+        <div id="script-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 id="script-title" class="text-xl font-bold"></h2>
+                        <button onclick="hideScript()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mb-4">
+                        <p id="script-content" class="whitespace-pre-line"></p>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <button onclick="copyScriptFromModal()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                            <i class="fas fa-copy mr-1"></i> Copiar
+                        </button>
+                        <button onclick="hideScript()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
+                            Fechar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Tips -->
+        <div class="bg-white p-6 rounded-lg shadow-md print-section">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2">PRÓXIMOS PASSOS</h2>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center mr-2">
+                            <i class="fas fa-check text-sm"></i>
+                        </div>
+                        <h3 class="font-bold">Eliminar Dívidas</h3>
+                    </div>
+                    <p class="text-sm">Use o dinheiro economizado para pagar dívidas de alto custo como cartão de crédito.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center mr-2">
+                            <i class="fas fa-piggy-bank text-sm"></i>
+                        </div>
+                        <h3 class="font-bold">Reserva de Emergência</h3>
+                    </div>
+                    <p class="text-sm">Construa uma reserva de 3-6 meses de gastos essenciais.</p>
+                </div>
+                
+                <div class="bg-purple-50 p-4 rounded-md">
+                    <div class="flex items-center mb-2">
+                        <div class="bg-purple-100 text-purple-800 rounded-full w-6 h-6 flex items-center justify-center mr-2">
+                            <i class="fas fa-chart-line text-sm"></i>
+                        </div>
+                        <h3 class="font-bold">Investimentos Básicos</h3>
+                    </div>
+                    <p class="text-sm">Comece a investir mesmo com pequenos valores mensais.</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                <h3 class="font-bold mb-2">Dica Final:</h3>
+                <p class="text-sm">Implemente uma revisão mensal de vazamentos financeiros para manter suas economias consistentes.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-sm text-gray-500 print-section">
+            <p>© <span id="current-year"></span> Método Detector de Vazamentos Financeiros</p>
+            <p class="mt-1">Material exclusivo - Proibida a reprodução sem autorização</p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Leak data
+        const leaks = {
+            "1": {
+                title: "Tarifas de Pacote Bancário",
+                savings: "R$30-45/mês",
+                detect: "Verifique no extrato bancário as tarifas cobradas mensalmente pelo pacote de serviços. Muitos bancos cobram por serviços que você não utiliza.",
+                solution: "Ligue para o banco e negocie um pacote mais básico ou migre para um banco digital que ofereça serviços gratuitos.",
+                script: "Olá, estou avaliando meus gastos mensais e notei que estou pagando R$X pelo pacote de serviços. Gostaria de saber quais são minhas opções para reduzir esse custo, pois utilizo principalmente [mencione 2-3 serviços que realmente usa]. Caso não haja um pacote mais econômico, considerarei transferir minha conta para outro banco."
+            },
+            "2": {
+                title: "Anuidade de Cartão de Crédito",
+                savings: "R$25-60/mês",
+                detect: "Verifique na fatura do cartão ou no contrato se está pagando anuidade. Mesmo cartões 'gratuitos' podem ter cobranças após o primeiro ano.",
+                solution: "Negocie isenção da anuidade com base no seu histórico de gastos ou troque por um cartão sem anuidade.",
+                script: "Boa tarde, sou titular do cartão [nome] há X anos e gostaria de negociar a isenção da anuidade. Tenho usado regularmente o cartão e gostaria de continuar, mas preciso reduzir este custo. Quais opções vocês podem me oferecer?"
+            },
+            "3": {
+                title: "Juros Rotativos no Cartão",
+                savings: "R$50-500/mês",
+                detect: "Verifique na fatura se você está pagando apenas o valor mínimo, o que aciona juros rotativos extremamente altos.",
+                solution: "Pague mais que o mínimo ou negocie a dívida para parcelar com juros menores.",
+                script: "Olá, estou com dificuldades para pagar minha fatura completa este mês. Gostaria de saber quais opções vocês têm para parcelamento com juros menores que os rotativos, pois quero regularizar minha situação."
+            },
+            "4": {
+                title: "Seguros Desnecessários",
+                savings: "R$20-120/mês",
+                detect: "Verifique no extrato seguros para cartão, empréstimos ou residenciais que você não solicitou ou não precisa.",
+                solution: "Cancele seguros redundantes ou desnecessários para seu perfil.",
+                script: "Olá, notei que estou sendo cobrado pelo seguro [nome do seguro] no valor de R$X mensais. Não me lembro de ter contratado este serviço e gostaria de cancelá-lo imediatamente. Por favor, confirme o cancelamento e me envie um comprovante por email."
+            },
+            "5": {
+                title: "Assinaturas de Streaming Duplicadas",
+                savings: "R$40-70/mês",
+                detect: "Verifique no extrato do cartão ou email por recibos de serviços como Netflix, Spotify, Amazon Prime, etc.",
+                solution: "Mantenha apenas os serviços que realmente utiliza e considere a técnica do 'streaming rotativo'.",
+                script: "Olá, gostaria de cancelar minha assinatura do [serviço] pois estou reorganizando meus gastos com entretenimento. Por favor, confirme o cancelamento efetivo a partir do próximo ciclo."
+            },
+            "6": {
+                title: "Compras Recorrentes de Apps",
+                savings: "R$30-60/mês",
+                detect: "Verifique na Apple Store/Google Play ou email por recibos de assinaturas de apps.",
+                solution: "Cancele apps que não utiliza há mais de 30 dias.",
+                script: "Olá, gostaria de cancelar minha assinatura do app [nome]. Por favor, confirme o cancelamento e não renove no próximo ciclo."
+            },
+            "7": {
+                title: "Delivery com Taxa de Entrega",
+                savings: "R$40-100/mês",
+                detect: "Verifique no histórico do iFood/Rappi ou extrato por gastos frequentes com taxas de entrega.",
+                solution: "Planeje pedidos com antecedência para aproveitar entregas gratuitas ou busque o restaurante.",
+                script: null
+            },
+            "8": {
+                title: "Plano de Celular Superdimensionado",
+                savings: "R$30-80/mês",
+                detect: "Verifique no site da operadora seu uso real de dados/minutos nos últimos 3 meses.",
+                solution: "Mude para um plano mais adequado ao seu uso real.",
+                script: "Bom dia, analisei meu uso de telefonia nos últimos 3 meses e percebi que estou usando apenas X% do meu plano atual. Gostaria de mudar para um plano mais adequado ao meu perfil. Antes de solicitar a redução, gostaria de saber quais opções vocês podem me oferecer que mantenham [benefícios importantes] mas reduzam meu custo mensal."
+            },
+            "9": {
+                title: "TV por Assinatura com Pacotes Premium",
+                savings: "R$50-150/mês",
+                detect: "Verifique no contrato ou site da operadora quais canais você realmente assiste.",
+                solution: "Reduza para pacote básico ou negocie desconto.",
+                script: "Olá, estou avaliando meus gastos com TV por assinatura e percebi que assisto apenas X canais regularmente. Gostaria de saber quais opções mais econômicas vocês oferecem que incluam esses canais [liste os canais]. Caso não haja uma opção viável, considerarei cancelar o serviço."
+            },
+            "10": {
+                title: "Academia Não Frequentada",
+                savings: "R$80-200/mês",
+                detect: "Avalie quantas vezes você realmente foi à academia nos últimos 3 meses.",
+                solution: "Cancele ou congele a matrícula se não está usando.",
+                script: "Olá, gostaria de cancelar minha matrícula na academia pois não estou conseguindo utilizar o serviço como gostaria. Por favor, informe os procedimentos para cancelamento e se há alguma taxa residual."
+            }
+        };
+
+        // User savings data
+        let userSavings = [];
+        const targetSavings = 500;
+
+        // Show leak details when selected
+        function showLeakDetails() {
+            const leakType = document.getElementById('leak-type').value;
+            const leakDetails = document.getElementById('leak-details');
+            
+            if (leakType && leaks[leakType]) {
+                const leak = leaks[leakType];
+                document.getElementById('leak-title').textContent = leak.title;
+                document.getElementById('leak-savings').textContent = leak.savings;
+                document.getElementById('leak-detect').textContent = leak.detect;
+                document.getElementById('leak-solution').textContent = leak.solution;
+                
+                if (leak.script) {
+                    document.getElementById('leak-script').classList.remove('hidden');
+                    document.getElementById('script-text').textContent = leak.script;
+                } else {
+                    document.getElementById('leak-script').classList.add('hidden');
+                }
+                
+                leakDetails.classList.remove('hidden');
+            } else {
+                leakDetails.classList.add('hidden');
+            }
+        }
+
+        // Add leak to savings
+        function addToSavings() {
+            const leakType = document.getElementById('leak-type').value;
+            const leakValue = parseFloat(document.getElementById('leak-value').value);
+            
+            if (leakType && leaks[leakType] && leakValue > 0) {
+                const leak = leaks[leakType];
+                
+                // Check if already added
+                const existingIndex = userSavings.findIndex(item => item.id === leakType);
+                
+                if (existingIndex >= 0) {
+                    userSavings[existingIndex].value = leakValue;
+                } else {
+                    userSavings.push({
+                        id: leakType,
+                        title: leak.title,
+                        value: leakValue
+                    });
+                }
+                
+                updateSavingsDisplay();
+                document.getElementById('leak-value').value = '';
+            } else {
+                alert('Por favor, selecione um vazamento e insira um valor válido.');
+            }
+        }
+
+        // Update savings display
+        function updateSavingsDisplay() {
+            const savingsTable = document.getElementById('savings-table');
+            savingsTable.innerHTML = '';
+            
+            let total = 0;
+            
+            userSavings.forEach((item, index) => {
+                total += item.value;
+                
+                const row = document.createElement('tr');
+                row.className = 'border-b';
+                row.innerHTML = `
+                    <td class="py-2 px-3">${item.title}</td>
+                    <td class="py-2 px-3">R$ ${item.value.toFixed(2)}</td>
+                    <td class="py-2 px-3">
+                        <button onclick="removeSavings(${index})" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
+                `;
+                savingsTable.appendChild(row);
+            });
+            
+            document.getElementById('total-savings').textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            const percentage = Math.min(100, (total / targetSavings) * 100);
+            document.getElementById('total-savings-bar').style.width = `${percentage}%`;
+            document.getElementById('savings-percentage').textContent = `${Math.round(percentage)}%`;
+            
+            // Calculate annual impact
+            const annual = total * 12;
+            document.getElementById('annual-impact').textContent = annual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            // Calculate 5-year impact at 8% annual return
+            const fiveYear = annual * (((Math.pow(1.08, 5) - 1) / 0.08));
+            document.getElementById('five-year-impact').textContent = fiveYear.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Remove savings item
+        function removeSavings(index) {
+            userSavings.splice(index, 1);
+            updateSavingsDisplay();
+        }
+
+        // Show day details
+        function showDay(day) {
+            document.getElementById(`day${day}-details`).classList.remove('hidden');
+        }
+
+        // Hide day details
+        function hideDay(day) {
+            document.getElementById(`day${day}-details`).classList.add('hidden');
+        }
+
+        // Show all leaks modal
+        function showAllLeaks() {
+            document.getElementById('all-leaks-modal').classList.remove('hidden');
+        }
+
+        // Hide all leaks modal
+        function hideAllLeaks() {
+            document.getElementById('all-leaks-modal').classList.add('hidden');
+        }
+
+        // Show script modal
+        function showScript(type) {
+            let title, content;
+            
+            if (type === 'telefonia') {
+                title = "Script para Redução de Plano de Telefonia";
+                content = `"Bom dia, analisei meu uso de telefonia nos últimos 3 meses e percebi que estou usando apenas X% do meu plano atual. Gostaria de mudar para um plano mais adequado ao meu perfil. Antes de solicitar a redução, gostaria de saber quais opções vocês podem me oferecer que mantenham [mencione 1-2 benefícios importantes para você] mas reduzam meu custo mensal. Caso não haja uma opção viável, considerarei migrar para outra operadora."`;
+            } else if (type === 'bancarias') {
+                title = "Script para Redução de Taxas Bancárias";
+                content = `"Boa tarde, sou cliente do banco há [X anos] e estou fazendo uma revisão das minhas finanças pessoais. Notei que pago R$[valor] em tarifas mensais, mas a concorrência está oferecendo pacotes similares por cerca de R$[mencione valor 40% menor]. Gostaria de entender quais opções o banco tem para me manter como cliente, pois prefiro não transferir minha conta, mas preciso reduzir estas despesas. O que vocês podem me oferecer?"`;
+            }
+            
+            document.getElementById('script-title').textContent = title;
+            document.getElementById('script-content').textContent = content;
+            document.getElementById('script-modal').classList.remove('hidden');
+        }
+
+        // Hide script modal
+        function hideScript() {
+            document.getElementById('script-modal').classList.add('hidden');
+        }
+
+        // Copy script from modal
+        function copyScriptFromModal() {
+            const script = document.getElementById('script-content').textContent;
+            copyText(script);
+            alert('Script copiado para a área de transferência!');
+        }
+
+        // Copy text to clipboard
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Success
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Copy script
+        function copyScript() {
+            const script = document.getElementById('script-text').textContent;
+            copyText(script);
+            alert('Script copiado para a área de transferência!');
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Tem certeza que deseja limpar todas as suas economias identificadas?')) {
+                userSavings = [];
+                updateSavingsDisplay();
+                document.getElementById('leak-type').value = '';
+                document.getElementById('leak-details').classList.add('hidden');
+                document.getElementById('leak-value').value = '';
+            }
+        }
+
+        // Initialize
+        updateSavingsDisplay();
+    </script>
+</body>
+</html>
